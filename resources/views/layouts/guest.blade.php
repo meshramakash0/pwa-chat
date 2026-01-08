@@ -67,6 +67,10 @@
 
         <!-- Register Service Worker for PWA -->
         <script>
+            // Set PWA session marker on login page (user has logged in fresh)
+            // This marker will persist until the browser/PWA window is closed
+            sessionStorage.setItem('pwa_app_session', Date.now().toString());
+
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
                     navigator.serviceWorker.register('/sw.js')

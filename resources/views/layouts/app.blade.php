@@ -52,6 +52,21 @@
 
         @auth
         <script>
+            // PWA Session Management - Force login on fresh app open
+            (function() {
+                const SESSION_KEY = 'pwa_app_session';
+                
+                // sessionStorage is cleared when browser/PWA window is closed
+                // If the key doesn't exist, this is a fresh app open
+                if (!sessionStorage.getItem(SESSION_KEY)) {
+                    // Set the marker first to prevent redirect loop
+                    sessionStorage.setItem(SESSION_KEY, Date.now().toString());
+                    // This is a fresh app open - redirect to logout
+                    window.location.href = '/logout-redirect';
+                    return;
+                }
+            })();
+
             // Push Notification Registration
             (function() {
                 const VAPID_PUBLIC_KEY = '{{ config("webpush.vapid.public_key") }}';

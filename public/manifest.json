@@ -1,7 +1,7 @@
 {
     "name": "KTK Chat",
     "short_name": "KTK Chat",
-    "description": "A WhatsApp-style chat application",
+    "description": "A KTK application",
     "start_url": "/chat",
     "scope": "/",
     "display": "standalone",

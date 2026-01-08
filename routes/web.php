@@ -9,6 +9,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// PWA logout redirect (for session timeout)
+Route::get('/logout-redirect', function () {
+    if (auth()->check()) {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+    }
+    return redirect()->route('login');
+})->name('logout.redirect');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
