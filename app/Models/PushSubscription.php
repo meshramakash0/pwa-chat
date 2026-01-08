@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class PushSubscription extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'endpoint',
+        'endpoint_hash',
+        'p256dh_key',
+        'auth_token',
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Set endpoint and automatically generate hash
+     */
+    public function setEndpointAttribute($value)
+    {
+        $this->attributes['endpoint'] = $value;
+        $this->attributes['endpoint_hash'] = hash('sha256', $value);
+    }
+}
